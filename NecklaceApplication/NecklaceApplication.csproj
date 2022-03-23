@@ -23,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\NecklaceCRUDReposLib\NecklaceCRUDReposLib.csproj" />
     <ProjectReference Include="..\NecklaceDB\NecklaceDB.csproj" />
     <ProjectReference Include="..\NecklaceModels\NecklaceModels.csproj" />
   </ItemGroup>

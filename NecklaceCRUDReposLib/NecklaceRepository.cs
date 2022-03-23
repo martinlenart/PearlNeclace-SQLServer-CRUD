@@ -9,7 +9,7 @@ using NecklaceDB;
 
 namespace NecklaceCRUDReposLib
 {
-    internal class NecklaceRepository : INecklaceRepository
+    public class NecklaceRepository : INecklaceRepository
     {
         NecklaceDbContext _db = null;
 
@@ -18,7 +18,7 @@ namespace NecklaceCRUDReposLib
             var added = await _db.Necklaces.AddAsync(necklace);
 
             int affected = await _db.SaveChangesAsync();
-            if (affected == 1)
+            if (affected == necklace.Count()+1)
                 return necklace;
             else
                 return null;
@@ -42,12 +42,12 @@ namespace NecklaceCRUDReposLib
         }
         public async Task<Necklace> DeleteAsync(int necklaceId)
         {
-            var cusDel = await _db.Necklaces.FindAsync(necklaceId);
-            _db.Necklaces.Remove(cusDel);
+            var delNecklace = await _db.Necklaces.FindAsync(necklaceId);
+            _db.Necklaces.Remove(delNecklace);
 
             int affected = await _db.SaveChangesAsync();
-            if (affected == 1)
-                return cusDel;
+            if (affected == delNecklace.Count() + 1)
+                return delNecklace;
             else
                 return null;
         }

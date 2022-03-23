@@ -10,7 +10,7 @@ using NecklaceDB;
 
 namespace NecklaceCRUDReposLib
 {
-    internal class PearlRepository : IPearlRepository
+    public class PearlRepository : IPearlRepository
     {
         NecklaceDbContext _db = null;
         public async Task<Pearl> CreateAsync(Pearl pearl)
