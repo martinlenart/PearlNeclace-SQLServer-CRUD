@@ -1,0 +1,39 @@
+1. Compile and Run SeidoApplication. 
+	- The Configuration Directory is shown on the console
+	- First time you run the program make sure to copy the file "appsettings.json" to the Configuration Directory
+	- "DbConnections.json"contains the Database connection string
+
+2. After you have copied the "DbConnections.json", re-run the program
+	- Your should have the Database Connection String as output on the console
+
+3. Create the DataModel by uncommenting the regions marked "Uncomment to create the Data model" in:
+	- SeidoDemoModels: Customer.cs, Order.cs
+	- SeidoDemoDb: SeidoDemoDbContext.cs
+
+5. ReBuild an Run the project. Output to the Console should be the Database connection string
+
+4. Open PMC and ensure that the Class Library, SeidoDemoDb, is the default project
+5. In PMC, type below command to migrate the Datamodel into Database: 
+	add-migration initial_migration
+6. The migration should be successful and you can view the changes in project SeidoDemoDb in a folder named Migrations 
+
+7. To undo the migration as it has not been committed to the database in PMC do
+	remove-migration
+8. You will see the Migration folder disappear as it was the first migration
+
+9. Redo the migration by typing in PMC
+	add-migration initial_migration
+10. Commit to the Database by typing in PMC
+	update-database
+
+11. Open DBeaver to check the newly created SQLite Database called SeidoDemo_SQLite
+	- Order and Customer Tables and ForeignKey contraints linking and Order with Customer should have been created
+
+12. Populate the database by uncommenting the regions marked "Uncomment to seed and query the Database" in:
+	- SeidoDemoModels: Customer.cs, Order.cs
+	- SeidoApplication: Program.cs
+
+13. Compile and run the program to seed the database. The Console output should after each run show Nr of Customers 
+    and Nr of Orders in the Database.
+
+14. Run the program a few times to see the database content increase

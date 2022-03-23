@@ -1,0 +1,12 @@
+{
+  "ConnectionStrings": {
+    "MariaDB_northwind": "server=localhost;uid=martin;pwd=seidoab;database=northwind",
+    "MariaDB_seidodemo": "server=localhost;uid=martin;pwd=seidoab;database=seidodemo",
+    "SQLite_northwind": "Data Source=C:\\Users\\marti\\Development\\Databases\\Northwind_SQLite.db",
+    "SQLite_seidodemo": "Data Source=C:\\Users\\marti\\Development\\Databases\\SeidoDemo_SQLite.db",
+    "SQLite_seidowebservice": "Data Source=C:\\Users\\marti\\Development\\Databases\\SeidoWebService_SQLite.db",
+    "SQLite_necklace": "Data Source=C:\\Users\\marti\\Development\\Databases\\Necklace_SQLite.db",
+    "SQLServer_seidodemo": "Data Source=localhost;Initial Catalog=SeidoDemo_SQLServer;Trusted_Connection=True",
+    "SQLServer_necklace": "Data Source=localhost;Initial Catalog=Necklace_SQLServer;Trusted_Connection=True"
+  }
+}
