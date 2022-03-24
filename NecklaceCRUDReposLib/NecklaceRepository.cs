@@ -18,27 +18,31 @@ namespace NecklaceCRUDReposLib
             var added = await _db.Necklaces.AddAsync(necklace);
 
             int affected = await _db.SaveChangesAsync();
-            if (affected == necklace.Count()+1)
+            if (affected == necklace.Pearls.Count()+1)
                 return necklace;
             else
                 return null;
         }
         public async Task<IEnumerable<Necklace>> ReadAllAsync()
         {
-            return await Task.Run(() => _db.Necklaces);
+            return await Task.Run(() =>
+            {
+                var necklaces = _db.Necklaces.ToList();
+                var pearls = _db.Pearls.ToList();
+                return necklaces;
+            });
         }
         public async Task<Necklace> ReadAsync(int necklaceId)
         {
-            return await _db.Necklaces.FindAsync(necklaceId);
+            var necklace = await _db.Necklaces.FindAsync(necklaceId);
+            var pearls = _db.Pearls.ToList();
+            return necklace;
         }
         public async Task<Necklace> UpdateAsync(Necklace necklace)
         {
             _db.Necklaces.Update(necklace); //No db interaction until SaveChangesAsync
-            int affected = await _db.SaveChangesAsync();
-            if (affected == 1)
-                return necklace;
-            else
-                return null;
+            await _db.SaveChangesAsync();
+            return necklace;
         }
         public async Task<Necklace> DeleteAsync(int necklaceId)
         {

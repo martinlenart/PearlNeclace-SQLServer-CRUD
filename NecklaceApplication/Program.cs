@@ -106,13 +106,16 @@ namespace NecklaceApplication
                 var necklaces = db.Necklaces.AsEnumerable().ToList();
                 var pearls = db.Pearls.AsEnumerable().ToList();
 
+                
                 Console.WriteLine($"\nOuterJoin: Necklace - Pearls via GroupJoin: Descending by Necklace Price");
                 var list1 = necklaces.GroupJoin(pearls, n => n.NecklaceID, pList => pList.NecklaceID, (n, pList) => new { n.NecklaceID, pList });
+                
+                /*
                 foreach (var pearlGroup in list1.OrderByDescending(pg => pg.pList.Sum(p => p.Price)))
                 {
                     Console.WriteLine($"Necklace: {pearlGroup.NecklaceID}, Nr Of Pearls: {pearlGroup.pList.Count()}, Price: {pearlGroup.pList.Sum(p => p.Price):C2}");
                 }
-
+                */
                 Console.WriteLine($"\nOuterJoin: Customer - Order via GroupJoin: Customer with highest ordervalue");
                 var MostExpensive = list1.OrderByDescending(pg => pg.pList.Sum(p => p.Price)).First();
 
@@ -241,26 +244,22 @@ namespace NecklaceApplication
                 else
                     Console.WriteLine("ERROR: Necklaces not equal");
 
-/*  Decision on how to update an Necklace
+
+
                 Console.WriteLine("\nTesting UpdateAsync()");
-                var (c, t) = (lastNecklace2.Color, lastNecklace2.Type);
+                Console.WriteLine($"Numbers Pearls in lastNecklace2: {lastNecklace2.Pearls.Count}");
+                lastNecklace2.Pearls.RemoveAt(0);
 
-                //Change properties
-                (lastNecklace2.Color, lastNecklace2.Type) = (PearlColor.White, PearlType.FreshWater);
-                var lastPearl3 = await _repo.UpdateAsync(lastNecklace2);
-                Console.WriteLine($"Last Pearl with updated properties.\n{lastNecklace2}");
+                var lastNecklace3 = await _repo.UpdateAsync(lastNecklace2);
+                Console.WriteLine($"Numbers Pearls in lastNecklace3: {lastNecklace3.Pearls.Count}");
 
-                if ((lastNecklace2.Color == lastPearl3.Color) && (lastNecklace2.Type == lastPearl3.Type))
-                {
-                    Console.WriteLine("Pearl Updated");
-                    (lastPearl3.Color, lastPearl3.Type) = (c, t);
-
-                    lastPearl3 = await _repo.UpdateAsync(lastPearl3);
-                    Console.WriteLine($"Last Pearl with restored properties.\n{lastPearl3}");
-                }
+                if (lastNecklace2.Pearls.Count == lastNecklace3.Pearls.Count)
+                    Console.WriteLine("Necklace updates");
                 else
-                    Console.WriteLine("ERROR: Pearl not updated");
-*/
+                    Console.WriteLine("ERROR: Necklace not updated");
+
+
+
 
                 Console.WriteLine("\nTesting CreateAsync()");
                 var newNecklace2 = await _repo.CreateAsync(Necklace.Factory.CreateRandomNecklace(25));
