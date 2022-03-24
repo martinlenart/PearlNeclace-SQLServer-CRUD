@@ -25,17 +25,12 @@ namespace NecklaceCRUDReposLib
         }
         public async Task<IEnumerable<Necklace>> ReadAllAsync()
         {
-            return await Task.Run(() =>
-            {
-                var necklaces = _db.Necklaces.ToList();
-                var pearls = _db.Pearls.ToList();
-                return necklaces;
-            });
+            return await Task.Run(() => _db.Necklaces);  //Not interested in having EFC load the embedded pearls
         }
         public async Task<Necklace> ReadAsync(int necklaceId)
         {
             var necklace = await _db.Necklaces.FindAsync(necklaceId);
-            var pearls = _db.Pearls.ToList();
+            var pearls = _db.Pearls.ToList();           //Needed if I want EFC to load the embedded pearls
             return necklace;
         }
         public async Task<Necklace> UpdateAsync(Necklace necklace)
